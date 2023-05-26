@@ -40,26 +40,32 @@ class Handle(object):
 
     def POST(self):
         # 主函数开始
-        try:
-            webData = web.data()
-            print("Handle Post webdata is ", webData)
-            recMsg = receive_json.parse_json(webData)
-            if isinstance(recMsg, receive_json.Msg) and recMsg.MsgType == 'text':
-                toUser = recMsg.FromUserName
-                fromUser = recMsg.ToUserName
-                content = recMsg.Content
-                replyMsg = reply.TextMsg(toUser, fromUser, content)
-                print('replyMsg: ', replyMsg.__dict__)
-                print('异步调用前')
-                async def send_reply():
-                    await replyMsg.send()
+        async def main():
+            try:
+                webData = web.data()
+                print("Handle Post webdata is ", webData)
+                recMsg = receive_json.parse_json(webData)
+                if isinstance(recMsg, receive_json.Msg) and recMsg.MsgType == 'text':
+                    toUser = recMsg.FromUserName
+                    fromUser = recMsg.ToUserName
+                    content = recMsg.Content
+                    replyMsg = reply.TextMsg(toUser, fromUser, content)
+                    print('replyMsg: ', replyMsg.__dict__)
+                    print('异步调用前')
 
-                loop = asyncio.get_event_loop()
-                task = loop.create_task(send_reply())  # 创建异步任务
-                loop.run_until_complete(task)  # 运行异步任务
-                print('异步调用后')
-            return "success"
-        except Exception as e:
-            return str(e)
+                    async def send_reply():
+                        await replyMsg.send()
 
+                    await send_reply()  # 异步调用
+
+                    print('异步调用后')
+                return "success"
+            except Exception as e:
+                return str(e)
+
+        # 创建事件循环并运行异步函数
+        loop = asyncio.get_event_loop()
+        result = loop.run_until_complete(main())
+
+        return result
 
