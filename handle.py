@@ -57,10 +57,12 @@ class Handle(object):
             webData = web.data()
             print("Handle Post webdata is ", webData)
             recMsg = receive_json.parse_json(webData)
+            print('recMsg: ', recMsg)
             if isinstance(recMsg, receive_json.Msg) and recMsg.MsgType == 'text':
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
                 content = recMsg.Content
+                print('toUser: ', toUser, 'fromUser: ', fromUser, 'content: ', content)
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
             # 后台打日志
