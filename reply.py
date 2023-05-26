@@ -21,7 +21,7 @@ class TextMsg(Msg):
         self.__dict__['Content'] = content
 
     def send(self):
-        # 发送gpt
+        # 请求 gpt
         reply = post.postGpt(self.__dict__['Content'])
 
         # 将gpt的回答返回给用户

@@ -50,15 +50,14 @@ class Handle(object):
                 content = recMsg.Content
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 print('replyMsg: ', replyMsg.__dict__)
-
+                print('异步调用前')
                 async def send_reply():
                     await replyMsg.send()
 
                 loop = asyncio.get_event_loop()
                 task = loop.create_task(send_reply())  # 创建异步任务
                 loop.run_until_complete(task)  # 运行异步任务
-
-            # 后台打日志
+                print('异步调用后')
             return "success"
         except Exception as e:
             return str(e)
