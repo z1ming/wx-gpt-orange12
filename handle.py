@@ -36,8 +36,6 @@ class Handle(object):
         except Exception as e:
             return str(e)
 
-    import asyncio
-
     def POST(self):
         # 主函数开始
         async def main():
@@ -63,9 +61,13 @@ class Handle(object):
             except Exception as e:
                 return str(e)
 
-        # 创建事件循环并运行异步函数
-        loop = asyncio.get_event_loop()
+        # 创建新的事件循环并设置为当前事件循环
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        # 运行主函数
         result = loop.run_until_complete(main())
 
         return result
+
 
