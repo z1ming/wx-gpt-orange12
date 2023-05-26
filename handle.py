@@ -36,6 +36,8 @@ class Handle(object):
         except Exception as e:
             return str(e)
 
+    import asyncio
+
     def POST(self):
         # 主函数开始
         try:
@@ -49,12 +51,16 @@ class Handle(object):
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 print('replyMsg: ', replyMsg.__dict__)
 
+                async def send_reply():
+                    await replyMsg.send()
+
                 loop = asyncio.get_event_loop()
-                task = asyncio.ensure_future(replyMsg.send())  # 创建异步任务
+                task = loop.create_task(send_reply())  # 创建异步任务
                 loop.run_until_complete(task)  # 运行异步任务
 
             # 后台打日志
             return "success"
         except Exception as e:
             return str(e)
+
 
