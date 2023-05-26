@@ -43,13 +43,13 @@ def postXcxTxt(toUser, content):
             "msgtype": "text",
             "text":
             {
-                "content": content
+                "content":  bytes(content, 'utf-8').decode('unicode_escape')
             }
         }
         response = requests.post('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='+access_token, data=json.dumps(data))
 
         # 处理响应
-        print('postXcxTxt 结果：', response)
-        return None
+        print('postXcxTxt 结果：', response.text)
+
     except Exception as e:
         return str(e)

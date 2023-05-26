@@ -17,7 +17,8 @@ def fetch_data():
     # 发起请求
     response = requests.get(
         'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxd26ba0053c3ce36a&secret=fbebb6c054183db0f4b8ef6bb5ae2640')
-    print('获取 access_token 结果：', response)
+
+    print('获取 access_token 结果：', response.status_code, response.content)
     # 检查响应状态码
     if response.status_code == 200:
         # 请求成功
