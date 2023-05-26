@@ -2,6 +2,8 @@
 # filename: handle.py
 
 import hashlib
+import threading
+
 import web
 import reply
 import receive_json
@@ -38,7 +40,12 @@ class Handle(object):
 
     def POST(self):
         # 主函数开始
-        async def main():
+        def async_callback():
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            loop.run_until_complete(send_reply())
+
+        async def send_reply():
             try:
                 webData = web.data()
                 print("Handle Post webdata is ", webData)
@@ -51,23 +58,19 @@ class Handle(object):
                     print('replyMsg: ', replyMsg.__dict__)
                     print('异步调用前')
 
-                    async def send_reply():
-                        await replyMsg.send()
-
-                    await send_reply()  # 异步调用
+                    await replyMsg.send()  # 异步调用
 
                     print('异步调用后')
-                return "success"
             except Exception as e:
-                return str(e)
+                print(str(e))
 
-        # 创建新的事件循环并设置为当前事件循环
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        # 先立即返回 "success"
+        response = "success"
 
-        # 运行主函数
-        result = loop.run_until_complete(main())
+        # 在新线程中执行异步回调
+        threading.Thread(target=async_callback).start()
 
-        return result
+        return response
+
 
 
