@@ -31,7 +31,7 @@ class TextMsg(Msg):
     #     return XmlForm.format(**self.__dict__)
 
     def send(self):
-        print(json.dumps(**self.__dict__))
+        print(self.__dict__)
 
 class ImageMsg(Msg):
     def __init__(self, toUserName, fromUserName, mediaId):
