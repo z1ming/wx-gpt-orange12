@@ -5,6 +5,7 @@ import hashlib
 import web
 import reply
 import receive_json
+import asyncio
 import post
 import json
 
@@ -36,6 +37,7 @@ class Handle(object):
             return str(e)
 
     def POST(self):
+        # 主函数开始
         try:
             webData = web.data()
             print("Handle Post webdata is ", webData)
@@ -46,7 +48,8 @@ class Handle(object):
                 content = recMsg.Content
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 print('replyMsg: ', replyMsg.__dict__)
-                return replyMsg.send()
+                task = asyncio.create_task(replyMsg.send())  # 创建异步任务
+                await task  # 等待异步任务完成
             # 后台打日志
             return "success"
         except Exception as e:
