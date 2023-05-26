@@ -7,6 +7,7 @@
 import json
 
 import requests
+import timer
 
 
 def postGpt(content):
@@ -30,5 +31,25 @@ def postGpt(content):
         print(response.text)  # 获取响应内容
         print(json.loads(response.text)["choices"][0]["message"]["content"])
         return json.loads(response.text)["choices"][0]["message"]["content"]
+    except Exception as e:
+        return str(e)
+
+def postXcxTxt(toUser, content):
+    access_token = timer.access_token
+    try:
+        # 发起POST请求
+        data = {
+            "touser": toUser,
+            "msgtype": "text",
+            "text":
+            {
+                "content": content
+            }
+        }
+        response = requests.post('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='+access_token, data=json.dumps(data))
+
+        # 处理响应
+        print('postXcxTxt 结果：', response)
+        return None
     except Exception as e:
         return str(e)
