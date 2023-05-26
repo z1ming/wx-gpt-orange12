@@ -64,6 +64,7 @@ class Handle(object):
                 content = recMsg.Content
                 print('toUser: ', toUser, 'fromUser: ', fromUser, 'content: ', content)
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
+                print('replyMsg: ', replyMsg)
                 return replyMsg.send()
             # 后台打日志
             return "success"
