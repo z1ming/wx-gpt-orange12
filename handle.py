@@ -6,7 +6,7 @@ import web
 import reply
 import receive_json
 import asyncio
-from main import global_queue
+from shared_queue import global_queue
 
 class Handle(object):
     def GET(self):

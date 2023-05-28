@@ -2,12 +2,10 @@
 # filename: main.py
 import web
 from handle import Handle
-
-import queue
+from shared_queue import global_queue
+import shared_queue
 import threading
 
-# 创建全局队列
-global_queue = queue.Queue()
 
 # 消费者线程，从队列中获取元素进行消费
 def consumer():
