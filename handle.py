@@ -33,7 +33,7 @@ class Handle(object):
         except Exception as e:
             return str(e)
 
-    async def POST(self):
+    def POST(self):
         try:
             webData = web.data()
             print("Handle Post webdata is ", webData)
@@ -45,7 +45,7 @@ class Handle(object):
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 print('replyMsg: ', replyMsg.__dict__)
                 print('异步调用前')
-                await send_reply(replyMsg)  # 使用await等待协程执行完成
+                # send_reply(replyMsg)
                 print('异步调用后')
             return 'success'  # 立即返回'success'
         except Exception as e:
