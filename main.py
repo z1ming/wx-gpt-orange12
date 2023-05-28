@@ -6,14 +6,10 @@ urls = (
     '/xcx', 'Handle',
 )
 
-if __name__ == '__main__':
+async def run_app():
     app = web.application(urls, globals())
-    loop = asyncio.get_event_loop()
-    loop.create_task(app.run())
+    await app.run()
 
-    try:
-        loop.run_forever()
-    except KeyboardInterrupt:
-        pass
-    finally:
-        loop.close()
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(run_app())
