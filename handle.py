@@ -50,7 +50,7 @@ class Handle(object):
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 print('replyMsg: ', replyMsg.__dict__)
                 print('异步调用前')
-                asyncio.run(send_reply(replyMsg))  # 运行异步函数
+                asyncio.create_task(send_reply(replyMsg))  # 运行异步函数
                 print('异步调用后')
             return 'success'
         except Exception as e:
