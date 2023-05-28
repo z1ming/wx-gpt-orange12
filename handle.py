@@ -45,12 +45,11 @@ class Handle(object):
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 print('replyMsg: ', replyMsg.__dict__)
                 print('异步调用前')
-                asyncio.create_task(send_reply(replyMsg))  # 将协程添加到事件循环中，立即返回
+                await send_reply(replyMsg)  # 使用await等待协程执行完成
                 print('异步调用后')
             return 'success'  # 立即返回'success'
         except Exception as e:
             print(str(e))
-
 
 async def send_reply(replyMsg):
     # 在这里执行发送回复的逻辑
