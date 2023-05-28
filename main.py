@@ -7,7 +7,13 @@ urls = (
 )
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    asyncio.set_event_loop(loop)
     app = web.application(urls, globals())
-    asyncio.run(app.run())
+    loop = asyncio.get_event_loop()
+    loop.create_task(app.run())
+
+    try:
+        loop.run_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        loop.close()
