@@ -16,10 +16,8 @@ def consumer():
             replyMsg.send()
 
         else:
-            # 队列为空，进行其他操作或休眠一段时间
-            print("队列为空，进行其他操作或休眠...")
-            # 在这里添加需要执行的操作或休眠的逻辑
-            # ...
+            # print("队列为空，进行其他操作或休眠...")
+            pass
 
 urls = (
     '/xcx', 'Handle',
