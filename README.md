@@ -6,14 +6,14 @@
 
 ![gif](./gif-demo.gif)
 
-# 环境说明
+## 环境说明
 
 1. 腾讯云服务器（或自己电脑）
 2. Python3.9.9
 3. [cloudflare 账号](https://dash.cloudflare.com/login)，用于域名转发
 4. 一个 ChatGPT 账号
 
-# 快速开始
+## 快速开始
 
 在服务器内克隆项目：
 
