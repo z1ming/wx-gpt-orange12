@@ -26,11 +26,13 @@ def postGpt(content):
         }
         response = requests.post('https://orange12.work/v1/chat/completions', headers=headers, data=json.dumps(data))
 
+        ret = json.loads(response.text)["choices"][0]["message"]["content"]
         # 处理响应
         print(response.status_code)  # 获取响应状态码
         print(response.text)  # 获取响应内容
         print(json.loads(response.text)["choices"][0]["message"]["content"])
-        return json.loads(response.text)["choices"][0]["message"]["content"]
+        response.close()
+        return ret
     except Exception as e:
         return str(e)
 
@@ -50,6 +52,7 @@ def postXcxTxt(toUser, content):
 
         # 处理响应
         print('postXcxTxt 结果：', response.text)
+        response.close()
 
     except Exception as e:
         return str(e)
